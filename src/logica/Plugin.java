@@ -5,7 +5,6 @@ public interface Plugin {
 	/**
 	 * Permite setear los atributos que contenga el plugin (solo contemplada la existencia de hasta 2 atributos).
 	 * No existe posibilidad de simular operaciones +ternarias, pero sí unarias.
-	 * 
 	 * @param n1 Primer atributo del plugin.
 	 * @param n2 Segundo atributo del plugin.
 	 */

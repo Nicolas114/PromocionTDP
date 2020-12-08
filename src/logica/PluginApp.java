@@ -125,11 +125,6 @@ public class PluginApp {
 				}
 			}
 		}
-
-		for (Plugin p : plugins) {
-			System.out.println(p.getPluginName());
-		}
-		System.out.println("---");
 	}
 
 	/**
@@ -176,5 +171,28 @@ public class PluginApp {
 		}
 
 		return resultado;
+	}
+	
+	public String mostrarDescripcion(String pluginame) {
+		boolean encontre = false;
+		Iterator<?> iter = plugins.iterator();
+		Plugin p;
+		String desc = "Descripción no encontrada.";
+
+		while (iter.hasNext()) {
+			p = (Plugin) iter.next();
+
+			if (p.getPluginName().equals(pluginame)) {
+				encontre = true;
+				desc = p.getDescription();
+				break;
+			}
+		}
+
+		if (!encontre) {
+			logger.severe("Plugin '" + pluginame + "' no encontrado.");
+		}
+		
+		return desc;
 	}
 }

@@ -65,7 +65,7 @@ public class App extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 200);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 153, 51));
+		contentPane.setBackground(Color.GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -86,7 +86,7 @@ public class App extends JFrame {
 
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.setFont(new Font("DejaVu Sans", Font.BOLD, 12));
-		btnActualizar.setBounds(284, 58, 117, 40);
+		btnActualizar.setBounds(264, 58, 164, 40);
 		contentPane.add(btnActualizar);
 
 		listaPlugins = new JComboBox<>();
@@ -94,7 +94,6 @@ public class App extends JFrame {
 		listaPlugins.setFont(new Font("DejaVu Sans", Font.BOLD, 12));
 		listaPlugins.setBounds(12, 24, 240, 24);
 		contentPane.add(listaPlugins);
-
 
 		textPaneResultado = new JTextPane();
 		textPaneResultado.setEditable(false);
@@ -106,9 +105,25 @@ public class App extends JFrame {
 		btnCalcular.setBounds(9, 110, 173, 25);
 		contentPane.add(btnCalcular);
 
+		JButton btnLeerDesc = new JButton("Leer descripción");
+		btnLeerDesc.setBounds(264, 24, 164, 25);
+		contentPane.add(btnLeerDesc);
+		
 		configListaOpciones(listaPlugins);
 		configBtnCalcular(btnCalcular, primertextField, segundotextField, textPaneResultado, listaPlugins);
 		configBtnActualizar(btnActualizar);
+		configBtnLeerDescripcion(btnLeerDesc, listaPlugins);
+		
+	}
+
+	private void configBtnLeerDescripcion(JButton b, JComboBox<String> lp) {
+		b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String currentOption = (String) lp.getSelectedItem();
+				String desc = pluginLogic.mostrarDescripcion(currentOption);
+				JOptionPane.showMessageDialog(contentPane, currentOption + ": " + desc);
+			}
+		});		
 	}
 
 	private void configBtnActualizar(JButton a) {
@@ -123,7 +138,6 @@ public class App extends JFrame {
 	private void configListaOpciones(JComboBox<String> lp) {
 		List<String> lista = pluginLogic.getPluginsNames();
 
-		System.out.println(lista.toString());
 		//solucionar problema de que se repiten las opciones a elegir (porque no detecto cuales estan repetidas)
 		for (String s : lista) {
 			if (!this.listaOpciones.contains(s)) {
@@ -152,10 +166,11 @@ public class App extends JFrame {
 						res.setText(String.format("%.8f", result));
 					}
 				}
-				catch (NumberFormatException err1) {
+				catch (NumberFormatException err) {
 					String input = tf1.getText() + "&" + tf2.getText();
 					pluginLogic.getLogger().warning("Input inválido: " + input);
 					String message = "¡Ingrese un número válido!";
+					res.setText("");
 					JOptionPane.showMessageDialog(contentPane, message);
 				}
 			}
