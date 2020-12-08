@@ -1,19 +1,20 @@
-package logica;
+package plugs;
 
-public class Potencia implements Plugin {
+import logica.Plugin;
 
-	private double param1, param2;
+public class Potencia implements Plugin{
+
+	private double param1, param2; 
 	
 	@Override
-	public void setParameters(double param1, double param2) {
+	public void setParameters(double n1, double n2) {
 		this.param1 = param1;
-		this.param2 = param2; 
+		this.param2 = param2;
 	}
 
 	@Override
 	public double execute() {
-		// TODO Auto-generated method stub
-		return (int) Math.pow(param1, param2);
+		return Math.pow(param1, param2);
 	}
 
 	@Override

@@ -14,15 +14,18 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class App extends JFrame {
 
 	//a fin de evitar números que puedan no quepar en el espacio del resultado
-	protected static final double MAXIMO_VALOR = 0x0999999;
+	protected static final double MAXIMO_VALOR = 0x09999999;
+	protected static final double MINIMO_VALOR = 0x99999999;
 	private PluginApp pluginLogic;
 	private JPanel contentPane;
 	private JTextField primertextField;
@@ -31,6 +34,7 @@ public class App extends JFrame {
 	private JButton btnCalcular;
 	private JButton btnActualizar;
 	private JComboBox<String> listaPlugins;
+	private List<String> listaOpciones;
 
 	/**
 	 * Launch the application.
@@ -52,23 +56,28 @@ public class App extends JFrame {
 	 * Create the frame.
 	 */
 	public App() {
+		setBackground(new Color(51, 102, 102));
 
 		pluginLogic = new PluginApp();
+		listaOpciones = new ArrayList<>();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 200);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 153, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		primertextField = new JTextField();
+		primertextField.setBackground(new Color(204, 204, 204));
 		primertextField.setFont(new Font("DejaVu Sans", Font.PLAIN, 12));
 		primertextField.setBounds(12, 60, 114, 38);
 		contentPane.add(primertextField);
 		primertextField.setColumns(10);
 
 		segundotextField = new JTextField();
+		segundotextField.setBackground(new Color(204, 204, 204));
 		segundotextField.setFont(new Font("DejaVu Sans", Font.PLAIN, 12));
 		segundotextField.setBounds(138, 60, 114, 38);
 		contentPane.add(segundotextField);
@@ -81,6 +90,7 @@ public class App extends JFrame {
 		contentPane.add(btnActualizar);
 
 		listaPlugins = new JComboBox<>();
+		listaPlugins.setBackground(new Color(204, 204, 204));
 		listaPlugins.setFont(new Font("DejaVu Sans", Font.BOLD, 12));
 		listaPlugins.setBounds(12, 24, 240, 24);
 		contentPane.add(listaPlugins);
@@ -88,7 +98,7 @@ public class App extends JFrame {
 
 		textPaneResultado = new JTextPane();
 		textPaneResultado.setEditable(false);
-		textPaneResultado.setBounds(182, 110, 219, 25);
+		textPaneResultado.setBounds(199, 110, 202, 25);
 		contentPane.add(textPaneResultado);
 
 		btnCalcular = new JButton("Calcular resultado:");
@@ -114,9 +124,16 @@ public class App extends JFrame {
 	private void configListaOpciones(JComboBox<String> lp) {
 		List<String> lista = pluginLogic.getPluginsNames();
 
+		System.out.println(lista.toString());
 		//solucionar problema de que se repiten las opciones a elegir (porque no detecto cuales estan repetidas)
 		for (String s : lista) {
-			lp.addItem(s);
+			if (!this.listaOpciones.contains(s)) {
+				this.listaOpciones.add(s);
+				lp.addItem(s);
+			}
+			else {
+				
+			}
 		}
 	}
 
@@ -136,6 +153,8 @@ public class App extends JFrame {
 					}
 				}
 				catch (NumberFormatException err) {
+					String input = tf1.getText() + "&" + tf2.getText();
+					pluginLogic.getLogger().warning("Input inválido: " + input);
 					String message = "¡Ingrese un número válido!";
 					JOptionPane.showMessageDialog(contentPane, message);
 				}

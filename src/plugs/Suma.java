@@ -1,24 +1,24 @@
-package logica;
+package plugs;
 
-public class Resta implements Plugin {
+import logica.Plugin;
 
+public class Suma implements Plugin {
+	
 	private double param1, param2;
 
 	@Override
 	public void setParameters(double param1, double param2) {
 		this.param1 = param1;
-		this.param2 = param2;		
+		this.param2 = param2;
 	}
 
 	@Override
 	public double execute() {
-		// TODO Auto-generated method stub
-		return this.param1 - this.param2;
+		return param1 + param2;
 	}
 
 	@Override
 	public String getPluginName() {
-		// TODO Auto-generated method stub
 		return this.getClass().getSimpleName();
 	}
 
@@ -27,4 +27,10 @@ public class Resta implements Plugin {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
+	
+
+
+
 }
