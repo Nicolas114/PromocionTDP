@@ -4,6 +4,7 @@ import logica.Plugin;
 
 public class Division implements Plugin {
 
+	//contempla dos atributos y error.
 	private double param1, param2;
 	private boolean hasError;
 	
@@ -11,15 +12,14 @@ public class Division implements Plugin {
 	public void setParameters(double param1, double param2) {
 		this.param1 = param1;
 		this.param2 = param2;
+		this.hasError = false;
 	}
 
 	@Override
 	public double execute() {
-		this.hasError = false;
 		
 		if (param2 == 0) {
 			this.hasError = true;
-			return 0;
 		}
 		
 		return ((double)this.param1 / this.param2);
@@ -27,14 +27,18 @@ public class Division implements Plugin {
 
 	@Override
 	public String getPluginName() {
-		// TODO Auto-generated method stub
 		return this.getClass().getSimpleName();
 	}
 
 	@Override
 	public boolean hasError() {
-		// TODO Auto-generated method stub
 		return hasError;
+	}
+
+	@Override
+	public String getDescription() {
+		String msg = "Computa la división entre dos números reales. El divisor no puede valer 0 (cero).";
+		return msg;
 	}
 
 }

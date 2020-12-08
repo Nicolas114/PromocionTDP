@@ -4,6 +4,7 @@ import logica.Plugin;
 
 public class Producto implements Plugin {
 	
+	//contempla dos atributos. No contempla errores.
 	private double param1, param2;
 
 	@Override
@@ -24,8 +25,14 @@ public class Producto implements Plugin {
 
 	@Override
 	public boolean hasError() {
-		// TODO Auto-generated method stub
+		//no existen errores en esta operacion, por lo cual retornamos siempre false
 		return false;
+	}
+
+	@Override
+	public String getDescription() {
+		String msg = "Computa la multiplicación entre dos números reales.";
+		return msg;
 	}
 
 }

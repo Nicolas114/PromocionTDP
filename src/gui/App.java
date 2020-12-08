@@ -26,6 +26,7 @@ public class App extends JFrame {
 	//a fin de evitar números que puedan no quepar en el espacio del resultado
 	protected static final double MAXIMO_VALOR = 0x09999999;
 	protected static final double MINIMO_VALOR = 0x99999999;
+
 	private PluginApp pluginLogic;
 	private JPanel contentPane;
 	private JTextField primertextField;
@@ -37,7 +38,7 @@ public class App extends JFrame {
 	private List<String> listaOpciones;
 
 	/**
-	 * Launch the application.
+	 * Inicializa la aplicación.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -53,7 +54,7 @@ public class App extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Crea el JFrame e inicializa y configura los componentes gráficos y lógicos de la aplicación.
 	 */
 	public App() {
 		setBackground(new Color(51, 102, 102));
@@ -83,7 +84,6 @@ public class App extends JFrame {
 		contentPane.add(segundotextField);
 		segundotextField.setColumns(10);
 
-
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.setFont(new Font("DejaVu Sans", Font.BOLD, 12));
 		btnActualizar.setBounds(284, 58, 117, 40);
@@ -105,7 +105,6 @@ public class App extends JFrame {
 		btnCalcular.setFont(new Font("DejaVu Sans", Font.BOLD, 12));
 		btnCalcular.setBounds(9, 110, 173, 25);
 		contentPane.add(btnCalcular);
-
 
 		configListaOpciones(listaPlugins);
 		configBtnCalcular(btnCalcular, primertextField, segundotextField, textPaneResultado, listaPlugins);
@@ -132,7 +131,7 @@ public class App extends JFrame {
 				lp.addItem(s);
 			}
 			else {
-				
+
 			}
 		}
 	}
@@ -145,6 +144,7 @@ public class App extends JFrame {
 					double n1 = Double.parseDouble(tf1.getText());
 					double n2 = Double.parseDouble(tf2.getText());
 					double result = pluginLogic.runPlugin(n1, n2, currentOption);
+					
 					if (result > MAXIMO_VALOR) {
 						res.setText("Incalculable");
 					}
@@ -152,7 +152,7 @@ public class App extends JFrame {
 						res.setText(String.format("%.8f", result));
 					}
 				}
-				catch (NumberFormatException err) {
+				catch (NumberFormatException err1) {
 					String input = tf1.getText() + "&" + tf2.getText();
 					pluginLogic.getLogger().warning("Input inválido: " + input);
 					String message = "¡Ingrese un número válido!";

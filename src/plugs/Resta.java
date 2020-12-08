@@ -4,6 +4,7 @@ import logica.Plugin;
 
 public class Resta implements Plugin {
 
+	//Contempla dos atributos. No contempla errores.
 	private double param1, param2;
 
 	@Override
@@ -14,19 +15,22 @@ public class Resta implements Plugin {
 
 	@Override
 	public double execute() {
-		// TODO Auto-generated method stub
 		return this.param1 - this.param2;
 	}
 
 	@Override
 	public String getPluginName() {
-		// TODO Auto-generated method stub
 		return this.getClass().getSimpleName();
 	}
 
 	@Override
 	public boolean hasError() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String getDescription() {
+		String msg = "Computa la resta/sustracción entre dos números reales.";
+		return msg;
 	}
 }

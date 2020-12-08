@@ -4,10 +4,11 @@ import logica.Plugin;
 
 public class Potencia implements Plugin{
 
+	//contempla dos atributos. No contempla la existencia de errores.
 	private double param1, param2; 
 	
 	@Override
-	public void setParameters(double n1, double n2) {
+	public void setParameters(double param1, double param2) {
 		this.param1 = param1;
 		this.param2 = param2;
 	}
@@ -24,8 +25,14 @@ public class Potencia implements Plugin{
 
 	@Override
 	public boolean hasError() {
-		// TODO Auto-generated method stub
+		//no existen errores en esta operacion, por lo cual retornamos siempre false
 		return false;
+	}
+
+	@Override
+	public String getDescription() {
+		String msg = "Computa la potenciación entre dos números reales.";
+		return msg;
 	}
 
 }

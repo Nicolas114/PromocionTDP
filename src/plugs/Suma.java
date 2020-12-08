@@ -4,6 +4,7 @@ import logica.Plugin;
 
 public class Suma implements Plugin {
 	
+	//Contempla dos atributos. No contempla errores.
 	private double param1, param2;
 
 	@Override
@@ -24,8 +25,13 @@ public class Suma implements Plugin {
 
 	@Override
 	public boolean hasError() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public String getDescription() {
+		String msg = "Computa la suma/adición entre dos números reales.";
+		return msg;
 	}
 
 	

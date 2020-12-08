@@ -1,17 +1,38 @@
 package logica;
 
 public interface Plugin {
-
-	// let the application pass in a parameter
+	
+	/**
+	 * Permite setear los atributos que contenga el plugin (solo contemplada la existencia de hasta 2 atributos).
+	 * No existe posibilidad de simular operaciones +ternarias, pero sí unarias.
+	 * 
+	 * @param n1 Primer atributo del plugin.
+	 * @param n2 Segundo atributo del plugin.
+	 */
 	public void setParameters (double n1, double n2);
 
-	// retrieve a result from the plugin
+	/**
+	 * Computa la operación indicada por el plugin.
+	 * @return El resultado de computar la operación indicada por el plugin.
+	 */
 	public double execute();
 
-	// return the name of this plugin
+	/**
+	 * Devuelve el nombre del plugin.
+	 * @return Nombre del plugin.
+	 */
 	public String getPluginName();
 
-	// can be called to determine whether the plugin
-	// aborted execution due to an error condition
+	/**
+	 * Método que puede ser invocado en aquellos plugins que contemplen errores (por ejemplo, la división por cero)
+	 * y así determinar si se abortó su ejecución debido a ese error.
+	 * @return true si la ejecución del plugin se detuvo por un error, false en caso contrario.
+	 */
 	public boolean hasError();
+	
+	/**
+	 * Devuelve una descripción del plugin.
+	 * @return descripción del plugin.
+	 */
+	public String getDescription();
 }
