@@ -4,6 +4,11 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
+/**
+ * Clase encargada de la parte de búsqueda, interpretación y carga de plugins en la aplicación.
+ * @author Nicolás González
+ *
+ */
 public class PluginLoader extends ClassLoader {
 	//directorio desde donde serán cargadas las clases
 	private File directorio;
@@ -39,7 +44,7 @@ public class PluginLoader extends ClassLoader {
 					c = findSystemClass(classname); 
 				}
 				catch (Exception | Error ex) {
-					
+					//no hacer nada, seguir probando otras opciones
 				}
 
 			//si la clase no fue encontrada en las dos instancias anteriores, entonces intentamos

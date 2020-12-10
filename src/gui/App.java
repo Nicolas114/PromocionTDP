@@ -20,6 +20,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.Color;
 
+/**
+ * Clase que maneja la parte gráfica de la aplicación. Es responsable de mostrar por pantalla la ventana,
+ * los botones y de delegar a la parte lógica su correspondiente funcionalidad.
+ * @author Nicolás González
+ * @see PluginApp
+ */
 @SuppressWarnings("serial")
 public class App extends JFrame {
 
@@ -45,6 +51,8 @@ public class App extends JFrame {
 			public void run() {
 				try {
 					App frame = new App();
+					frame.setResizable(false);
+					frame.setTitle("Calculadora");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,7 +77,7 @@ public class App extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		primertextField = new JTextField();
 		primertextField.setBackground(new Color(204, 204, 204));
 		primertextField.setFont(new Font("DejaVu Sans", Font.PLAIN, 12));
@@ -138,14 +146,10 @@ public class App extends JFrame {
 	private void configListaOpciones(JComboBox<String> lp) {
 		List<String> lista = pluginLogic.getPluginsNames();
 
-		//solucionar problema de que se repiten las opciones a elegir (porque no detecto cuales estan repetidas)
 		for (String s : lista) {
 			if (!this.listaOpciones.contains(s)) {
 				this.listaOpciones.add(s);
 				lp.addItem(s);
-			}
-			else {
-
 			}
 		}
 	}

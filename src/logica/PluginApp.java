@@ -9,6 +9,12 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Clase encargada de la parte lógica de la aplicación. Tiene como responsabilidad manejar la
+ * obtención e instanciación de plugins 
+ * @author Nicolás González
+ *
+ */
 public class PluginApp {
 
 	//directorio de los plugins
@@ -33,8 +39,8 @@ public class PluginApp {
 	 * las colecciones donde serán almacenados.
 	 */
 	public PluginApp () {
-		//				this.pluginsDir = "plugs"; //directorio utilizado a la hora de generar el .jar
-		this.pluginsDir = "bin/plugs";
+		this.pluginsDir = "plugs"; //directorio utilizado a la hora de generar el .jar
+		//		this.pluginsDir = "bin/plugs"; //directorio usado en el entorno de Eclipse
 		this.plugins = new ArrayList<>();
 		this.pluginNames = new ArrayList<>();
 
@@ -115,6 +121,7 @@ public class PluginApp {
 									pf = (Plugin) c.getDeclaredConstructor().newInstance();
 									this.pluginNames.add(c.getSimpleName());
 									this.plugins.add(pf);
+									logger.info("Agregado plugin " + c.getSimpleName());
 								}
 
 							}
@@ -140,13 +147,14 @@ public class PluginApp {
 		Iterator<?> iter = plugins.iterator();
 		Plugin p;
 
+		//busca el plugin con nombre equivalente a pluginame parametrizado entre todos los plugins, a fin de ejecutarlo.
 		while (iter.hasNext()) {
 			p = (Plugin) iter.next();
 
 			if (!encontre && p.getPluginName().equals(pluginame)) {
 				encontre = true;
 				p.setParameters(n1, n2);
-				
+
 				if (p.hasError()) {
 					logger.warning("Hubo un error durante la inicialización del plugin.");
 				}
@@ -170,7 +178,12 @@ public class PluginApp {
 
 		return resultado;
 	}
-	
+
+	/**
+	 * Muestra la descripcion del plugin con nombre parametrizado
+	 * @param pluginame Nombre del plugin.
+	 * @return Descripcion del plugin.
+	 */
 	public String mostrarDescripcion(String pluginame) {
 		boolean encontre = false;
 		Iterator<?> iter = plugins.iterator();
@@ -189,7 +202,7 @@ public class PluginApp {
 		if (!encontre) {
 			logger.severe("Plugin '" + pluginame + "' no encontrado.");
 		}
-		
+
 		return desc;
 	}
 }

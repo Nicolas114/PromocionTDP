@@ -1,10 +1,15 @@
 package logica;
 
+/**
+ * Clase que modela una unidad de funcionalidad adicional (plugin).
+ * @author Nicolás González
+ *
+ */
 public interface Plugin {
 	
 	/**
-	 * Permite setear los atributos que contenga el plugin (solo contemplada la existencia de hasta 2 atributos).
-	 * No existe posibilidad de simular operaciones +ternarias, pero sí unarias.
+	 * Permite setear los atributos que contenga el plugin (solo contempla la existencia de hasta 2 atributos).
+	 * No es posible simular operaciones +ternarias, pero sí unarias.
 	 * @param n1 Primer atributo del plugin.
 	 * @param n2 Segundo atributo del plugin.
 	 */
