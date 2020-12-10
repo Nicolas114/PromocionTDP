@@ -57,7 +57,7 @@ public class App extends JFrame {
 	 * Crea el JFrame e inicializa y configura los componentes gráficos y lógicos de la aplicación.
 	 */
 	public App() {
-		setBackground(new Color(51, 102, 102));
+		setBackground(Color.GRAY);
 
 		pluginLogic = new PluginApp();
 		listaOpciones = new ArrayList<>();
@@ -97,12 +97,12 @@ public class App extends JFrame {
 
 		textPaneResultado = new JTextPane();
 		textPaneResultado.setEditable(false);
-		textPaneResultado.setBounds(199, 110, 202, 25);
+		textPaneResultado.setBounds(199, 110, 229, 25);
 		contentPane.add(textPaneResultado);
 
 		btnCalcular = new JButton("Calcular resultado:");
 		btnCalcular.setFont(new Font("DejaVu Sans", Font.BOLD, 12));
-		btnCalcular.setBounds(9, 110, 173, 25);
+		btnCalcular.setBounds(12, 110, 173, 25);
 		contentPane.add(btnCalcular);
 
 		JButton btnLeerDesc = new JButton("Leer descripción");

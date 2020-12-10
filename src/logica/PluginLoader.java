@@ -24,9 +24,15 @@ public class PluginLoader extends ClassLoader {
 
 	@Override
 	public Class<?> loadClass (String classname, boolean resolve) throws ClassNotFoundException {
+		Class<?> c;
+		String filename = "";
+		File f;
+		int length = 0;
+		byte[] classbytes;
+		DataInputStream in;
 		try {
 			//chequea si la clase buscada ya está cargada en el cache
-			Class<?> c = findLoadedClass(classname);
+			c = findLoadedClass(classname);
 
 			if (c == null) {
 				try {
@@ -39,13 +45,13 @@ public class PluginLoader extends ClassLoader {
 			//si la clase no fue encontrada en las dos instancias anteriores, entonces intentamos
 			//cargarla desde un archivo ubicado en el directorio 
 			if (c == null) {
-				String filename = classname.replace('.', File.separatorChar) + ".class";
+				filename = classname.replace('.', File.separatorChar) + ".class";
 
-				File f = new File(directorio, filename);
+				f = new File(directorio, filename);
 
-				int length = (int) f.length();
-				byte[] classbytes = new byte[length];
-				DataInputStream in = new DataInputStream(new FileInputStream(f));
+				length = (int) f.length();
+				classbytes = new byte[length];
+				in = new DataInputStream(new FileInputStream(f));
 				in.readFully(classbytes);
 				in.close();
 

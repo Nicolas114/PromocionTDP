@@ -143,7 +143,7 @@ public class PluginApp {
 		while (iter.hasNext()) {
 			p = (Plugin) iter.next();
 
-			if (p.getPluginName().equals(pluginame)) {
+			if (!encontre && p.getPluginName().equals(pluginame)) {
 				encontre = true;
 				p.setParameters(n1, n2);
 				
@@ -161,8 +161,6 @@ public class PluginApp {
 					System.out.print("( " + n1 + ", " + n2 + " ): ");
 					System.out.println(resultado);
 				}
-
-				break;
 			}
 		}
 
@@ -182,10 +180,9 @@ public class PluginApp {
 		while (iter.hasNext()) {
 			p = (Plugin) iter.next();
 
-			if (p.getPluginName().equals(pluginame)) {
+			if (!encontre && p.getPluginName().equals(pluginame)) {
 				encontre = true;
 				desc = p.getDescription();
-				break;
 			}
 		}
 
