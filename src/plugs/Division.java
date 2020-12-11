@@ -17,12 +17,15 @@ public class Division implements Plugin {
 
 	@Override
 	public double execute() {
-		
+		double res = 0;
 		if (param2 == 0) {
 			this.hasError = true;
 		}
+		else {
+			res = ((double)this.param1 / this.param2);
+		}
 		
-		return ((double)this.param1 / this.param2);
+		return res;
 	}
 
 	@Override

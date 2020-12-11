@@ -17,6 +17,8 @@ import java.util.logging.Logger;
  */
 public class PluginApp {
 
+	//bandera booleana que registra si el último plugin que corrió tuvo errores.
+	private boolean tieneError;
 	//directorio de los plugins
 	private String pluginsDir;
 	//una lista donde guardamos los plugins inicializados
@@ -27,14 +29,6 @@ public class PluginApp {
 	private static Logger logger;
 
 	/**
-	 * Devuelve el logger de la aplicación.
-	 * @return logger de la app.
-	 */
-	public Logger getLogger() {
-		return logger;
-	}
-
-	/**
 	 * Inicializa la aplicación de plugins, indicando el directorio donde serán buscados e inicializando
 	 * las colecciones donde serán almacenados.
 	 */
@@ -43,6 +37,7 @@ public class PluginApp {
 		//		this.pluginsDir = "bin/plugs"; //directorio usado en el entorno de Eclipse
 		this.plugins = new ArrayList<>();
 		this.pluginNames = new ArrayList<>();
+		this.tieneError = false;
 
 
 		//inicializa y configura el logger
@@ -157,17 +152,22 @@ public class PluginApp {
 
 				if (p.hasError()) {
 					logger.warning("Hubo un error durante la inicialización del plugin.");
-				}
-				logger.info("Plugin '" + p.getPluginName() + "' en ejecución.");
-				resultado = p.execute();
-
-				if (p.hasError()) {
-					logger.warning("Hubo un error durante la ejecución del plugin.");
+					this.tieneError = true;
 				}
 				else {
-					System.out.print("Plugin " + p.getPluginName());
-					System.out.print("( " + n1 + ", " + n2 + " ): ");
-					System.out.println(resultado);
+					logger.info("Plugin '" + p.getPluginName() + "' en ejecución.");
+					resultado = p.execute();
+
+					if (p.hasError()) {
+						logger.warning("Hubo un error durante la ejecución del plugin.");
+						this.tieneError = true;
+					}
+					else {
+						System.out.print("Plugin " + p.getPluginName());
+						System.out.print("( " + n1 + ", " + n2 + " ): ");
+						System.out.println(resultado);
+						this.tieneError = false;
+					}
 				}
 			}
 		}
@@ -176,6 +176,7 @@ public class PluginApp {
 			logger.severe("Plugin '" + pluginame + "' no encontrado.");
 		}
 
+		System.out.println("Ultimo plugin con errores: " + this.tieneError);
 		return resultado;
 	}
 
@@ -204,5 +205,17 @@ public class PluginApp {
 		}
 
 		return desc;
+	}
+
+	public boolean tieneError() {
+		return tieneError;
+	}
+
+	/**
+	 * Devuelve el logger de la aplicación.
+	 * @return logger de la app.
+	 */
+	public Logger getLogger() {
+		return logger;
 	}
 }

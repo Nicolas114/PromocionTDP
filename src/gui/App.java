@@ -52,7 +52,7 @@ public class App extends JFrame {
 				try {
 					App frame = new App();
 					frame.setResizable(false);
-					frame.setTitle("Calculadora");
+					frame.setTitle("CalculadoraSimple");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,7 +77,7 @@ public class App extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		primertextField = new JTextField();
 		primertextField.setBackground(new Color(204, 204, 204));
 		primertextField.setFont(new Font("DejaVu Sans", Font.PLAIN, 12));
@@ -116,12 +116,12 @@ public class App extends JFrame {
 		JButton btnLeerDesc = new JButton("Leer descripción");
 		btnLeerDesc.setBounds(264, 24, 164, 25);
 		contentPane.add(btnLeerDesc);
-		
+
 		configListaOpciones(listaPlugins);
 		configBtnCalcular(btnCalcular, primertextField, segundotextField, textPaneResultado, listaPlugins);
 		configBtnActualizar(btnActualizar);
 		configBtnLeerDescripcion(btnLeerDesc, listaPlugins);
-		
+
 	}
 
 	private void configBtnLeerDescripcion(JButton b, JComboBox<String> lp) {
@@ -162,12 +162,19 @@ public class App extends JFrame {
 					double n1 = Double.parseDouble(tf1.getText());
 					double n2 = Double.parseDouble(tf2.getText());
 					double result = pluginLogic.runPlugin(n1, n2, currentOption);
-					
-					if (result > MAXIMO_VALOR) {
-						res.setText("Incalculable");
+
+					if (!pluginLogic.tieneError()) {
+						if (result > MAXIMO_VALOR) {
+							res.setText("Incalculable");
+						}
+						else {
+							res.setText(String.format("%.8f", result));
+						}
 					}
 					else {
-						res.setText(String.format("%.8f", result));
+						res.setText("");
+						String message = "Hubo un error durante la ejecución del plugin. Pruebe con revisar sus entradas.";
+						JOptionPane.showMessageDialog(contentPane, message);
 					}
 				}
 				catch (NumberFormatException err) {
